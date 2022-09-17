@@ -36,10 +36,9 @@ export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    axios.get(`${API_PATHS.bff}/products/`).then((res) => {
-      setProducts(res.data);
+    axios.get(`${API_PATHS.bff}/products`).then((res) => {
+      setProducts(res.data.products);
     });
-    // setProducts(productList);
   }, []);
 
   return (
@@ -50,11 +49,14 @@ export default function Products() {
             <CardMedia
               className={classes.cardMedia}
               image={product.image}
-              title="Image title"
+              title={product.title}
             />
             <CardContent className={classes.cardContent}>
               <Typography gutterBottom variant="h5" component="h2">
-                {product.title}
+                {product.productName}
+              </Typography>
+              <Typography gutterBottom variant="h5" component="h2">
+                {product.authtor}
               </Typography>
               <Typography>{formatAsPrice(product.price)}</Typography>
             </CardContent>
