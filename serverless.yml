@@ -1,4 +1,4 @@
-service: my-ed-first-app
+service: my-fe-store-app
 
 frameworkVersion: "3"
 
@@ -7,7 +7,7 @@ provider:
   runtime: nodejs14.x
   region: eu-west-1
   # setup profile for AWS CLI.
-  # profile: ts4ed
+  # profile: node-aws
 
 plugins:
   - serverless-finch
@@ -19,12 +19,12 @@ plugins:
 
 custom:
   client:
-    bucketName: my-ed-first-app
-    distributionFolder: build
-  s3BucketName: my-ed-first-app
+    bucketName: my-fe-store-app
+    localDir: build
+  s3BucketName: ${self:custom.client.bucketName}
 
   ## Serverless-single-page-app-plugin configuration:
-  s3LocalPath: ${self:custom.client.distributionFolder}/
+  s3LocalPath: ${self:custom.client.localDir}/
   serverless-s3-cleaner:
     buckets:
       - ${self:custom.client.bucketName}
