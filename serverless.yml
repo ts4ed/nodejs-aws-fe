@@ -1,4 +1,4 @@
-service: my-ed-first-app
+service: my-fe-store-app
 
 frameworkVersion: "3"
 
@@ -6,25 +6,22 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: eu-west-1
+
   # setup profile for AWS CLI.
-  # profile: ts4ed
+  # profile: node-aws
 
 plugins:
   - serverless-finch
-  # 'serverless-single-page-app-plugin' is a custom plugin that located .serverless_plugins folder.
-  # Existing plugin (https://www.npmjs.com/package/serverless-single-page-app-plugin) doesn't have invalidate cache feature that often used during CI/CD events.
-  # How to build your own plugins: https://www.serverless.com/framework/docs/providers/aws/guide/plugins#service-local-plugin
-  - serverless-single-page-app-plugin
   - serverless-s3-cleaner
 
 custom:
   client:
-    bucketName: my-ed-first-app
-    distributionFolder: build
-  s3BucketName: my-ed-first-app
+    bucketName: my-fe-store-app
+    localDir: build
+  s3BucketName: ${self:custom.client.bucketName}
 
   ## Serverless-single-page-app-plugin configuration:
-  s3LocalPath: ${self:custom.client.distributionFolder}/
+  s3LocalPath: ${self:custom.client.localDir}/
   serverless-s3-cleaner:
     buckets:
       - ${self:custom.client.bucketName}
